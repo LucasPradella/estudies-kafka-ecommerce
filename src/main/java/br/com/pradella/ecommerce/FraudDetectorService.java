@@ -1,5 +1,6 @@
 package br.com.pradella.ecommerce;
 
+import br.com.pradella.ecommerce.model.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 public class FraudDetectorService {

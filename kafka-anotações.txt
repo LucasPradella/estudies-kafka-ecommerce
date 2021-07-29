@@ -55,6 +55,13 @@ lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ b
 lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
 
 
+-> alterar diretorio que salva os dados das filas
+-> arquivo server-properties
+log.dirs=/media/lucas/Desenvolvimento/Alura/kafka/data/kafka
+
+-> arquivo zookeepers-properties
+/media/lucas/Desenvolvimento/Alura/kafka/data/Zookeeper
+
 
 
 codigo font
