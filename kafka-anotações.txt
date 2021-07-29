@@ -1,0 +1,60 @@
+kafka anotações 
+
+-> primeiro devemos fazer o zookeeper rodar (as informações são armazendas aqui)
+
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/zookeeper-server-start.sh config/zookeeper.properties
+
+-> depois devemos iniciar o kafka
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-server-start.sh config/server.properties 
+
+
+-> criar um topico 
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic LOJA_NOVO_PEDIDO
+
+-> listar topico 
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+
+-> produzir mensagem 
+
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-console-producer.sh --broker-list localhost:9092 --topic LOJA_NOVO_PEDIDO
+>pedido1-0
+>pedido2-10000
+>pedido3,10000000
+>pedido4,9999999999
+>
+
+
+-> consumir topicos 
+
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO
+
+-> consumir topicos, desde o inicio  
+
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic LOJA_NOVO_PEDIDO --from-beginning
+pedido1-0
+pedido2-10000
+pedido3,10000000
+pedido4,9999999999
+
+
+-> aumentar numero de partições 
+-> arquivo server.properties 
+ -> alterar linha "num.partitions=4"
+
+:: Alerta  essa configuração é valida apenas para novos topicos 
+
+-> comando para alterar topicos criados anteriormente
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-topics.sh --alter  --zookeeper localhost:2181 --topic ECOMMERCE_NEW_ORDER --partitions 4
+ 
+-> descrição dos topicos
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe
+
+
+-> descrição  e informação do consumo dos grupos
+lucas@LucasPradella:/media/lucas/Desenvolvimento/Alura/kafka/kafka_2.13-2.8.0$ bin/kafka-consumer-groups.sh --all-groups --bootstrap-server localhost:9092 --describe
+
+
+
+
+codigo font https://github.com/alura-cursos/kafka-introducao-e-microservicos/blob/master/video1.4/ecommerce/src/main/java/br/com/alura/ecommerce/NewOrderMain.java
