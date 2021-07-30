@@ -65,4 +65,4 @@ log.dirs=/media/lucas/Desenvolvimento/Alura/kafka/data/kafka
 
 
 codigo font
-https://github.com/alura-cursos/kafka-introducao-e-microservicos/blob/master/video1.4/ecommerce/src/main/java/br/com/alura/ecommerce/NewOrderMain.java
+https://github.com/alura-cursos/kafka-introducao-e-microservicos
