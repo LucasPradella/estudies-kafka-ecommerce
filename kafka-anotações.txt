@@ -65,4 +65,5 @@ log.dirs=/media/lucas/Desenvolvimento/Alura/kafka/data/kafka
 
 
 codigo font
-https://github.com/alura-cursos/kafka-introducao-e-microservicos
+curso 1: https://github.com/alura-cursos/kafka-introducao-e-microservicos
+curso 2: https://github.com/alura-cursos/kafka-fast-delegate-and-clusters

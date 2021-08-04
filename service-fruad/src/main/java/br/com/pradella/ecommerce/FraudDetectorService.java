@@ -4,6 +4,7 @@ import model.Order;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class FraudDetectorService {
 
@@ -17,20 +18,29 @@ public class FraudDetectorService {
             }
         }
 
-        private void parse(ConsumerRecord<String, Order> record) {
-            System.out.println("------------------------------------------");
+        private final KafkaDispatcher<Order> dispatcher = new KafkaDispatcher<>();
+
+        private void parse(ConsumerRecord<String, Order> record) throws ExecutionException, InterruptedException {
+            System.out.println("------------------------------");
             System.out.println("Processing new order, checking for fraud");
             System.out.println(record.key());
-            System.out.println(record.value());
+            var order = record.value();
+            System.out.println(order);
             System.out.println(record.partition());
             System.out.println(record.offset());
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                // ignoring
+                // ignoring because its a simulation
                 e.printStackTrace();
             }
-            System.out.println("Order processed");
+            if (order.isFraud()) {
+                System.out.println("Order is a fraud");
+                dispatcher.send("ECOMMERCE_ORDER_REJECTED", order.getUserId(), order);
+            } else {
+                System.out.println("Order was accepted");
+                dispatcher.send("ECOMMERCE_ORDER_APPROVED", order.getUserId(), order);
+            }
         }
 
 }
